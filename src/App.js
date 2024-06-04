@@ -28,7 +28,7 @@ function App() {
   //         });
   //         const provider = new ethers.providers.Web3Provider(window.ethereum);
   //         const network = await provider.getNetwork();
-          
+
 
 
   //         // Check if the chain ID is as expected
@@ -69,10 +69,16 @@ function App() {
   //   loadProvider();
   // }, []);
 
-  useEffect(() => {
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-
+  // useEffect(() => {
+    
     const loadProvider = async () => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const network = await provider.getNetwork();
+      if (network.chainId !== 1440002) {
+        alert('Please switch to the correct network. Then Try Again');
+        console.log("Change Network");
+        return;
+      }
       if (provider) {
         window.ethereum.on("chainChanged", () => {
           window.location.reload()
@@ -81,7 +87,7 @@ function App() {
         window.ethereum.on("accountsChanged", () => {
           window.location.reload();
         });
-        
+
         await provider.send("eth_requestAccounts", []);
         const signer = provider.getSigner();
         const address = await signer.getAddress();
@@ -103,15 +109,15 @@ function App() {
         //console.log(contract);
         setMarketplace(marketplacecontract);
         // setNFT(nftcontract)
-       
+
       } else {
         console.error("Metamask is not installed");
       }
     };
-
-    provider && loadProvider();
     console.log("App code end");
-  }, []);
+
+    // provider && loadProvider();
+  // }, []);
 
   return (
 
@@ -123,9 +129,10 @@ function App() {
 
           <Nav account={account} />
           {
-            loading ? (<div>Connecting to Metamask</div>) : (
+            loading ? (
+              <First loadProvider={loadProvider} loading={loading} />) : (
               <Routes>
-              <Route path='/' element={<First />}/>
+                <Route path='/' element={<First loadProvider={loadProvider} loading={loading}/>} />
                 <Route path='/home' element={<Hero marketplace={marketplace} nftItem={nftItem} account={account} />} />
                 <Route path='/create' element={<Create marketplace={marketplace} />} />
                 {/* <Route path='/my-listed-nfts' element={<MyItem marketplace={marketplace} account={account} />} /> */}
