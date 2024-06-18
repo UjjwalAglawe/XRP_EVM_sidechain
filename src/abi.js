@@ -256,14 +256,8 @@ export const marketplace_abi = [
 				"type": "uint256"
 			}
 		],
-		"name": "seeNFT",
-		"outputs": [
-			{
-				"internalType": "string",
-				"name": "",
-				"type": "string"
-			}
-		],
+		"name": "seeItem",
+		"outputs": [],
 		"stateMutability": "payable",
 		"type": "function"
 	},
@@ -385,7 +379,7 @@ export const marketplace_abi = [
 				"type": "uint256"
 			}
 		],
-		"name": "getcurrOwner",
+		"name": "getCurrOwner",
 		"outputs": [
 			{
 				"internalType": "address",
@@ -542,6 +536,25 @@ export const marketplace_abi = [
 				"internalType": "address",
 				"name": "",
 				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_itemId",
+				"type": "uint256"
+			}
+		],
+		"name": "seeNFT",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",

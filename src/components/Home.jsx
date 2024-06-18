@@ -123,6 +123,7 @@
 import { useState, useEffect } from 'react';
 import { ethers } from "ethers";
 import Info from './Info';
+import { ToastContainer, toast } from 'react-toastify';
 
 const Home = ({ marketplace, account }) => {
   useEffect(() => {
@@ -163,18 +164,49 @@ const Home = ({ marketplace, account }) => {
     setToggle(!toggle);
   }
   const viewMarketItem = async (item) => {
-    const response = await marketplace.seeNFT(item.itemId);
-    const uri = await response.wait(); // Wait for the transaction to complete
+    const price = await marketplace.getTotalPrice(item.itemId);
+    console.log("The price is ", price);
+    const priceno = price.toString();
+    const priceinWei = ethers.utils.parseUnits(priceno, "wei");
 
-    const links = await marketplace.tokenURI(item.itemId);
-    console.log("Links", links);
-    const responses = await fetch(links);
-    // console.log("Result",result);
-    const result = await responses.json();
-    console.log("Result", result);
-    setToggle(true); // Set toggle to true to show Info component
-    // loadMarketplaceItems();
-    setNftitem(result);
+    const extraEther = ethers.utils.parseUnits("0.5", "ether");
+    const totalValue = priceinWei.add(extraEther);
+    console.log("The price in wei is ", totalValue.toString());
+
+
+    const getBalance = async (address) => {
+      const provider = new ethers.providers.Web3Provider(window.ethereum);
+      const balance = await provider.getBalance(address);
+      // const balanceInEth = ethers.utils.formatEther(balance);
+      if (balance < totalValue) {
+        toast.error("Insufficient Balence")
+        console.log(balance)
+        return false
+      }
+      console.log(balance);
+    }
+    getBalance(account);
+    try {
+      // const response = await marketplace.seeNFT(item.itemId);
+      const response = await marketplace.seeItem(item.itemId, { value: totalValue });
+      const uri = await response.wait(); // Wait for the transaction to complete
+
+      const links = await marketplace.tokenURI(item.itemId);
+      console.log("Links", links);
+      const responses = await fetch(links);
+      // console.log("Result",result);
+      const result = await responses.json();
+      console.log("Result", result);
+      setToggle(true); // Set toggle to true to show Info component
+      // loadMarketplaceItems();
+      setNftitem(result);
+
+    } catch (error) {
+      console.error("Transaction failed:", error);
+      toast.error("Transaction failed");
+    }
+
+
   };
 
   useEffect(() => {
@@ -207,7 +239,7 @@ const Home = ({ marketplace, account }) => {
                         <strong>1 XRP</strong>
                       </p>
                       <button onClick={() => viewMarketItem(item)} className="mt-4 w-full px-4 py-2 text-sm font-medium leading-5 text-white transition-transform transform duration-300 bg-gradient-to-r from-blue-500 to-purple-600 border border-transparent rounded-lg shadow-lg hover:scale-105 hover:from-blue-600 hover:to-purple-700 focus:outline-none focus:ring-4 focus:ring-blue-300">
-                        Open
+                        Play
                         <svg
                           className="rtl:rotate-180 w-4 h-4 inline-block ml-2 -mt-px"
                           xmlns="http://www.w3.org/2000/svg"

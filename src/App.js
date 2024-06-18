@@ -93,7 +93,7 @@ function App() {
         const address = await signer.getAddress();
         setAccount(address);
         setLoading(false)
-        let marketplaceAddress = "0x4AcdAD06C1C9145047aCD21b9B4649F2959DA52F";
+        let marketplaceAddress = "0x372A29ccfE8fFb2FE0079C453d104C247A50edeE";
         const marketplacecontract = new ethers.Contract(
           marketplaceAddress,
           marketplace_abi,
@@ -127,7 +127,7 @@ function App() {
         <div className="gradient-bg-welcome">
           {/* <button onClick={connect}>Con</button> */}
 
-          <Nav account={account} />
+          <Nav account={account} loadProvider={loadProvider} loading={loading}/>
           {
             loading ? (
               <First loadProvider={loadProvider} loading={loading} />) : (
