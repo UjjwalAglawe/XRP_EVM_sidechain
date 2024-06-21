@@ -25,7 +25,7 @@ function First({loadProvider,loading}) {
                 </h1>
                 <Slider {...settings}>
                     <div className="text-xl font-thin">
-                        <span className='text-sky-400 font-bold'>Welcome to VideoXLRP </span>– the premier platform for digital artistry and innovation in the world of Video NFTs. Dive into an immersive experience where creativity meets blockchain technology, enabling artists and collectors alike to create, showcase, and watch unique video masterpieces.
+                        <span className='text-sky-400 font-bold'>Welcome to VideoRipple </span>– the premier platform for digital artistry and innovation in the world of Video NFTs. Dive into an immersive experience where creativity meets blockchain technology, enabling artists and collectors alike to create, showcase, and watch unique video masterpieces.
                     </div>
                     <div className="text-xl font-thin">
                         <span className='text-sky-400 font-bold'>Create:</span> With our intuitive tools, transform your videos into one-of-a-kind NFTs. Whether it’s a captivating animation, a breathtaking short film, or an engaging motion graphic, your content is minted with a unique digital signature, ensuring authenticity and ownership.
@@ -37,7 +37,7 @@ function First({loadProvider,loading}) {
                         <span className='text-sky-400 font-bold'>Connect:</span> Join a community of visionary creators and enthusiastic collectors. Participate in discussions, collaborate on projects, and be at the forefront of the Video NFT movement.
                     </div>
                     <div className="text-xl font-thin">
-                        <span className='text-sky-400 font-bold'>VideoXLRP</span>   is more than a platform; it’s a revolution in the digital art space. Unleash your creativity, discover extraordinary art, and be part of the future of video expression today.
+                        <span className='text-sky-400 font-bold'>VideoRipple</span>   is more than a platform; it’s a revolution in the digital art space. Unleash your creativity, discover extraordinary art, and be part of the future of video expression today.
                     </div>
                 </Slider>
             </div>
